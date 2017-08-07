@@ -18,7 +18,7 @@ OTB_REPO=${OTB_REPO:-http://$OTB_HOST:$OTB_PORT/$OTB_PATH}
 
 _get_repo source https://github.com/ovh/overthebox-lede "otb-17.08.03"
 _get_repo feeds/packages https://github.com/openwrt/packages "lede-17.01"
-_get_repo feeds/luci https://github.com/openwrt/luci "for-15.05"
+_get_repo feeds/luci https://github.com/jow-/luci-ng.git "master"
 
 if [ -z "$OTB_FEED" ]; then
 	OTB_FEED=feeds/overthebox
