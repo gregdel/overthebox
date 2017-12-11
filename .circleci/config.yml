@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    timezone: Europe/Paris
+    environment:
+        OTB_PATH: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -yq build-essential git unzip ncurses-dev libz-dev libssl-dev python subversion gettext gawk wget curl rsync perl
+      - checkout
+      - restore_cache:
+          keys:
+            - my-cache
+      - run:
+          name: Build everything
+          command: sh build.sh -j3
+          no_output_timeout: 1.5h
+      - save_cache:
+          key: my-cache
+          paths:
+            - source
+            - feeds
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
